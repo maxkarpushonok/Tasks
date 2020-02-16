@@ -33,7 +33,7 @@
                     <input type="password" name="password" placeholder="Password" value="<?= isset($_POST['password']) ? htmlspecialchars($_POST['password']) : ''; ?>" required><br/>
                     <input type="submit" name="signin" value="Sign in">
                 </form>
-                <?php /** @var Tasks_Model $param */ echo isset($param['enter_result']) ? '<script> alert("' . $param['enter_result'] . '");</script>': ''; ?>
+                <?php /** @var Tasks_Model $param */ echo isset($param['signin_result']) ? '<script> alert("' . $param['signin_result'] . '");</script>': ''; ?>
             </div>
         </div>
         <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">

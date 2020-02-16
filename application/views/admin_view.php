@@ -20,7 +20,6 @@ $way_i = ((strcasecmp($way, 'ASC') == 0) ? 'DESC' : 'ASC');
             <input type="submit" name="signout" value="Sign out">
         </form>
     </div>
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
     <script>
         function getXmlHttp(){
             var xmlhttp;
@@ -58,8 +57,6 @@ $way_i = ((strcasecmp($way, 'ASC') == 0) ? 'DESC' : 'ASC');
 
             req.send(params);
         }
-
-
     </script>
     <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
         <table>
@@ -79,7 +76,7 @@ $way_i = ((strcasecmp($way, 'ASC') == 0) ? 'DESC' : 'ASC');
             $res = ($row['result'] == 1) ? 'checked' : '';
             echo '<tr><td>' . $row['user']
                 . '</td><td>' . $row['mail']
-                . '</td><td><input id="' . $row['id'] . '" type="text" value="' . $row['task'] . '">' . $edit
+                . '</td><td><input id="' . $row['id'] . '" type="text" name="task[' . $row['id'] . ']" value="' . $row['task'] . '">' . $edit
                 . '</td><td><input id="' . $row['id']  . '" type="checkbox" name="result[]" ' . $res . ' onchange="submit_checkbox(this)"></td></tr>' . "\n";
         }
     }
@@ -94,7 +91,7 @@ $way_i = ((strcasecmp($way, 'ASC') == 0) ? 'DESC' : 'ASC');
     </form>
 </div>
 <div>
-    <?php /** @var Tasks_Model $param */ echo isset($param['add_result']) ? '<script> alert("' . $param['add_result'] . '");</script>': ''; ?>
+    <?php /** @var Tasks_Model $param */ echo isset($param['save_result']) ? '<script> alert("' . $param['save_result'] . '");</script>': ''; ?>
 
 </div>
 <div>

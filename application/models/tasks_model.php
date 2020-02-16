@@ -131,7 +131,7 @@ class Tasks_Model extends Model {
             setcookie('password', md5($password), time()+3600);
 
             header('Refresh:1');
-            return 'Authorization!';
+            return 'You are signed in!';
         }
     }
 
@@ -144,5 +144,25 @@ class Tasks_Model extends Model {
 
         $query = "UPDATE tasks SET result=" . $_POST['status'] . " WHERE id=" . $_POST['id'] . ";";
         $mysqli->query($query);
+    }
+
+    public function  save() {
+        $mysqli = $this->mysqli;
+
+        if ($mysqli->connect_error) {
+            die('Connection error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+        }
+
+        foreach ($_POST['task'] as $key => $value) {
+            $query = "SELECT task FROM tasks WHERE id=" . $key . ";";
+            $result = $mysqli->query($query);
+            $row = $result->fetch_assoc();
+            if (!(strcmp($row['task'], $this->check_data($value)) == 0)) {
+                $query = "UPDATE tasks SET task='" . $this->check_data($value) . "', edit=true WHERE id=" . $key . ";";
+                $mysqli->query($query);
+            }
+        }
+        header('Refresh:1');
+        return 'Changes saved!';
     }
 }

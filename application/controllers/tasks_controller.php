@@ -28,7 +28,7 @@ class Tasks_Controller extends Controller
             $param['add_result'] = $this->model->add_task();
 
         if (isset($_POST['signin']))
-            $param['enter_result'] = $this->model->authorization();
+            $param['signin_result'] = $this->model->authorization();
 
         if (isset($_POST['signout'])) {
             setcookie('login', '', time()-3600);
@@ -39,16 +39,23 @@ class Tasks_Controller extends Controller
         $login = isset($_COOKIE['login']) ? $_COOKIE['login'] : '';
         $password = isset($_COOKIE['password']) ? $_COOKIE['password'] : '';
 
+        $admin = false;
+        if ((strcasecmp($login, Config::get('admin_login')) == 0) && (strcasecmp($password, md5(Config::get('admin_password'))) == 0))
+            $admin = true;
+
         if (isset($_POST['checked'])) {
-            if ((strcasecmp($login, Config::get('admin_login')) == 0) && (strcasecmp($password, md5(Config::get('admin_password'))) == 0))
+            if ($admin)
                 $this->model->checked();
         }
 
         if (isset($_POST['save'])) {
-
+            if ($admin)
+                $param['save_result'] = $this->model->save();
+            else
+                $param['add_result'] = 'You are not signed in!';
         }
 
-        if ((strcasecmp($login, Config::get('admin_login')) == 0) && (strcasecmp($password, md5(Config::get('admin_password'))) == 0))
+        if ($admin)
             $this->view->generate('admin_view.php', 'template_view.php', $data, $param);
         else
             $this->view->generate('tasks_view.php', 'template_view.php', $data, $param);
