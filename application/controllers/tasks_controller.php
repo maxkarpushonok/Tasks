@@ -21,7 +21,12 @@ class Tasks_Controller extends Controller
     function action_index()
     {
         $data = $this->model->get_data();
+
         $param['pages'] = $this->model->get_page_count();
+
+        if (isset($_POST['add']))
+            $param['add_result'] = $this->model->add_task();
+
         $this->view->generate('tasks_view.php', 'template_view.php', $data, $param);
     }
 }

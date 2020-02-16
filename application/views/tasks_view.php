@@ -48,6 +48,9 @@ $way_i = ((strcasecmp($way, 'ASC') == 0) ? 'DESC' : 'ASC');
         </table>
     </div>
     <div>
+        <?php /** @var Tasks_Model $param */ echo isset($param['add_result']) ? $param['add_result'] : ''; ?>
+    </div>
+    <div>
         <?php
         /** @var Tasks_Model $param */
         if ($param['pages'] > 1) {
@@ -63,5 +66,3 @@ $way_i = ((strcasecmp($way, 'ASC') == 0) ? 'DESC' : 'ASC');
         }
         ?>
     </div>
-<?php
-echo var_dump($_POST); //TODO debug
