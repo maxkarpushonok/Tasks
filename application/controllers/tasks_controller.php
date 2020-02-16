@@ -28,5 +28,7 @@ class Tasks_Controller extends Controller
             $param['add_result'] = $this->model->add_task();
 
         $this->view->generate('tasks_view.php', 'template_view.php', $data, $param);
+
+        $this->model->close_connect();
     }
 }

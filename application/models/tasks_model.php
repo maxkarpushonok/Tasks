@@ -16,7 +16,6 @@ class Tasks_Model extends Model {
 
         $query = "SELECT COUNT(*) FROM `tasks`;";
         $result= $mysqli->query($query);
-//        $mysqli->close();
         $row = $result->fetch_row();
         return (int) ceil($row[0] / Config::get('tasks_on_page'));
     }
@@ -44,11 +43,10 @@ class Tasks_Model extends Model {
         }
 
         $start = ($page - 1) * Config::get('tasks_on_page');
-        $end = $start + Config::get('tasks_on_page');
+        $end = Config::get('tasks_on_page');
 
         $query = "SELECT * FROM tasks ORDER BY $sort $way LIMIT $start, $end;";
         $result = $mysqli->query($query);
-//        $mysqli->close();
 
         $rows = array();
         while ($row = $result->fetch_assoc()) {
@@ -64,6 +62,8 @@ class Tasks_Model extends Model {
     public function add_task() {
         $result = 'Tasks added!';
 
+
+
         $mysqli = $this->mysqli;
 
         if ($mysqli->connect_error) {
@@ -72,7 +72,6 @@ class Tasks_Model extends Model {
 
         $query = "INSERT INTO tasks (user, mail, task) VALUES ('" . $_POST['user'] . "', '" . $_POST['mail'] . "', '" . $_POST['task'] . "');";
         $mysqli->query($query);
-//        $mysqli->close();
         header('Refresh:3');
         return $result;
     }

@@ -33,4 +33,11 @@ class Model {
     public function get_data() {
 
     }
+
+    /**
+     * Close connect
+     */
+    public function close_connect() {
+        $this->mysqli->close();
+    }
 }
