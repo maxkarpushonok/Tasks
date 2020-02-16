@@ -52,7 +52,7 @@ class Tasks_Controller extends Controller
             if ($admin)
                 $param['save_result'] = $this->model->save();
             else
-                $param['add_result'] = 'You are not signed in!';
+                $param['add_result'] = 'Вы не вошли в систему!';
         }
 
         if ($admin)

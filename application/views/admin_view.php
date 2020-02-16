@@ -1,23 +1,23 @@
 <?php
-$page = 1;
-if (isset($_GET['p']))
-    $page = (int) $_GET['p'];
+    $page = 1;
+    if (isset($_GET['p']))
+        $page = (int) $_GET['p'];
 
-$sort = 'user';
-if (isset($_GET['s']))
-    $sort = (string) $_GET['s'];
+    $sort = 'user';
+    if (isset($_GET['s']))
+        $sort = (string) $_GET['s'];
 
-$way = 'ASC';
-if (isset($_GET['w']))
-    $way = (string) $_GET['w'];
+    $way = 'ASC';
+    if (isset($_GET['w']))
+        $way = (string) $_GET['w'];
 
-$way_i = ((strcasecmp($way, 'ASC') == 0) ? 'DESC' : 'ASC');
+    $way_i = ((strcasecmp($way, 'ASC') == 0) ? 'DESC' : 'ASC');
 ?>
-<h1>Tasks list - Admin</h1>
+<h1>Список задач - Управление задачами</h1>
 <div>
     <div>
         <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]) . '?p=' . $page . '&s=' . $sort . '&w=' . $way;?>" method="post">
-            <input type="submit" name="signout" value="Sign out">
+            <input type="submit" name="signout" value="Выйти">
         </form>
     </div>
     <script>
@@ -51,7 +51,7 @@ $way_i = ((strcasecmp($way, 'ASC') == 0) ? 'DESC' : 'ASC');
 
             req.addEventListener('readystatechange', () => {
                 if(req.readyState === 4 && req.status === 200) {
-                    alert('Changes saved!');
+                    alert('Изменения сохранены!');
                 }
             });
 
@@ -61,10 +61,10 @@ $way_i = ((strcasecmp($way, 'ASC') == 0) ? 'DESC' : 'ASC');
     <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
         <table>
             <tr>
-                <td><a href="<?='?p=' . $page . '&s=user&w=' . $way_i . ''?>">User</a></td>
-                <td><a href="<?='?p=' . $page . '&s=mail&w=' . $way_i . ''?>">Mail</a></td>
-                <td>Task</td>
-                <td><a href="<?='?p=' . $page . '&s=result&w=' . $way_i . ''?>">Result</a></td>
+                <td><a href="<?='?p=' . $page . '&s=user&w=' . $way_i . ''?>">имя пользователя</a></td>
+                <td><a href="<?='?p=' . $page . '&s=mail&w=' . $way_i . ''?>">e-mail</a></td>
+                <td>текст задачи</td>
+                <td><a href="<?='?p=' . $page . '&s=result&w=' . $way_i . ''?>">статус</a></td>
             </tr>
 <?php
     /** @var Tasks_Model $data */
@@ -72,7 +72,7 @@ $way_i = ((strcasecmp($way, 'ASC') == 0) ? 'DESC' : 'ASC');
         foreach ($data as $row) {
             $edit = '';
             if ($row['edit'])
-                $edit = '</br>Edited by admin';
+                $edit = '<br/><span style="color: #900;">Отредактировано администратором.</span>';
             $res = ($row['result'] == 1) ? 'checked' : '';
             echo '<tr><td>' . $row['user']
                 . '</td><td>' . $row['mail']
@@ -85,7 +85,7 @@ $way_i = ((strcasecmp($way, 'ASC') == 0) ? 'DESC' : 'ASC');
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><input type="submit" name="save" value="Save"></td>
+                <td><input type="submit" name="save" value="Сохранить"></td>
             </tr>
         </table>
     </form>
@@ -98,7 +98,7 @@ $way_i = ((strcasecmp($way, 'ASC') == 0) ? 'DESC' : 'ASC');
     <?php
     /** @var Tasks_Model $param */
     if ($param['pages'] > 1) {
-        echo 'Pages: ';
+        echo 'Страницы: ';
         for ($i = 1; $i <= $param['pages']; $i++) {
             if ($i == $page)
                 echo $i;

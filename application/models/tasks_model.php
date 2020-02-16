@@ -16,7 +16,8 @@ class Tasks_Model extends Model {
 
         $query = "SELECT COUNT(*) FROM `tasks`;";
         $result= $mysqli->query($query);
-        $row = $result->fetch_row;
+        $row = $result->fetch_row();
+
         return (int) ceil($row[0] / Config::get('tasks_on_page'));
     }
 
@@ -49,7 +50,7 @@ class Tasks_Model extends Model {
         $result = $mysqli->query($query);
 
         $rows = array();
-        while ($row = $result->fetch_assoc) {
+        while ($row = $result->fetch_assoc()) {
             $rows[] = array(
                 'id' => $row['id'], 'user' => $row['user'], 'mail' => $row['mail'],
                 'task' => $row['task'], 'result' => $row['result'],
@@ -69,13 +70,13 @@ class Tasks_Model extends Model {
             $result = '';
 
             if (empty($_POST['user']))
-                $result .= 'User is empty! ';
+                $result .= 'Поле имя пользователя не заполнено! ';
 
             if (empty($_POST['mail']))
-                $result .= 'Mail is empty! ';
+                $result .= 'Поле e-mail не заполнено! ';
 
             if (empty($_POST['task']))
-                $result .= 'Task is empty! ';
+                $result .= 'Поле текст задачи не заполнено! ';
 
             return $result;
         } else {
@@ -85,12 +86,12 @@ class Tasks_Model extends Model {
 
             $user_pattern = "/^([A-z]{1,}[ ]{0,1}){1,}$/";
             if (!preg_match($user_pattern, $user))
-                return 'User is incorrect!';
+                return 'Поле имя пользователя может содержать только символы латинского алфавmaxита и пробел!';
 
 //            $mail_pattern = "/^([0-9A-z]{1,}[-._]{0,1}){1,4}@([0-9A-z]{1,}[-]{0,1}[0-9A-z]{1,}\.){1,2}[A-z]{2,}$/";
 //            if (!preg_match($mail_pattern, $mail))
             if (!filter_var($mail, FILTER_VALIDATE_EMAIL))
-                return 'Mail is incorrect!';
+                return 'Поле e-mail заполнено неверно!';
 
             $mysqli = $this->mysqli;
 
@@ -101,7 +102,8 @@ class Tasks_Model extends Model {
             $query = "INSERT INTO tasks (user, mail, task) VALUES ('" . $user. "', '" . $mail . "', '" . $task. "');";
             $mysqli->query($query);
             header('Refresh:1');
-            return 'Task added!';
+
+            return 'Задача добавлена!';
         }
     }
 
@@ -110,10 +112,10 @@ class Tasks_Model extends Model {
             $result = '';
 
             if (empty($_POST['login']))
-                $result .= 'Login is empty! ';
+                $result .= 'Поле Логин не заполнено! ';
 
             if (empty($_POST['password']))
-                $result .= 'Password is empty!';
+                $result .= 'Поле Пароль не заполнено!';
 
             return $result;
         } else {
@@ -121,17 +123,17 @@ class Tasks_Model extends Model {
             $password = $this->check_data($_POST['password']);
 
             if (strcasecmp($login, Config::get('admin_login')) != 0)
-                return 'Incorrect login!';
+                return 'Неверный логин!';
 
             if (strcasecmp($password, Config::get('admin_password')) != 0) {
-                return 'Incorrect password!';
+                return 'Неверный пароль!';
             }
 
             setcookie('login', $login, time()+3600);
             setcookie('password', md5($password), time()+3600);
 
             header('Refresh:1');
-            return 'You are signed in!';
+            return 'Вы вошли в систему!';
         }
     }
 
@@ -163,6 +165,6 @@ class Tasks_Model extends Model {
             }
         }
         header('Refresh:1');
-        return 'Changes saved!';
+        return 'Изменения сохранены!';
     }
 }
