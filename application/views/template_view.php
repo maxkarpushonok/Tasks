@@ -8,7 +8,7 @@
 <body>
 <?php
     /** @var View $content_view */
-    maxinclude 'application/views/'. (String) $content_view;
+    include 'application/views/'. (String) $content_view;
 ?>
 </body>
 </html>
