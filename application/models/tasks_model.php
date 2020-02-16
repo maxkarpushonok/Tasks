@@ -59,20 +59,46 @@ class Tasks_Model extends Model {
         return $rows;
     }
 
-    public function add_task() {
-        $result = 'Tasks added!';
+    public function add_task()
+    {
+        if (empty($_POST['user']) || empty($_POST['mail']) || empty($_POST['task'])) {
+            $result = '';
 
+            if (empty($_POST['user']))
+                $result .= 'User is empty! ';
 
+            if (empty($_POST['mail']))
+                $result .= 'Mail is empty! ';
 
-        $mysqli = $this->mysqli;
+            if (empty($_POST['task']))
+                $result .= 'Task is empty! ';
 
-        if ($mysqli->connect_error) {
-            die('Connection error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+            return $result;
+        } else {
+            $user = trim($_POST['user']);
+            $mail = trim($_POST['mail']);
+            $task = htmlspecialchars(stripslashes(trim($_POST['task'])));
+
+            $user_pattern = "/^([A-z]{1,}[ ]{0,1}){1,}$/";
+            if (!preg_match($user_pattern, $user))
+                return 'User is incorrect!';
+
+//            $mail_pattern = "/^([0-9A-z]{1,}[-._]{0,1}){1,4}@([0-9A-z]{1,}[-]{0,1}[0-9A-z]{1,}\.){1,2}[A-z]{2,}$/";
+//            if (!preg_match($mail_pattern, $mail))
+            if (!filter_var($mail, FILTER_VALIDATE_EMAIL))
+                return 'Mail is incorrect!';
+
+            $mysqli = $this->mysqli;
+
+            if ($mysqli->connect_error) {
+                die('Connection error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+            }
+
+            $query = "INSERT INTO tasks (user, mail, task) VALUES ('" . $user. "', '" . $mail . "', '" . $task. "');";
+            $mysqli->query($query);
+            header('Refresh:3');
+            return 'Task added!';
         }
 
-        $query = "INSERT INTO tasks (user, mail, task) VALUES ('" . $_POST['user'] . "', '" . $_POST['mail'] . "', '" . $_POST['task'] . "');";
-        $mysqli->query($query);
-        header('Refresh:3');
-        return $result;
     }
 }

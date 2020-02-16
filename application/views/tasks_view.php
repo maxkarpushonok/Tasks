@@ -39,16 +39,16 @@
     }
 ?>
             <tr>
-                <td><input id="user" type="text" name="user" placeholder="Name"></td>
-                <td><input id="mail" type="email" name="mail" placeholder="e-mail"></td>
-                <td><input id="task" type="text" name="task" placeholder="task"></td>
+                <td><input id="user" type="text" name="user" placeholder="Name" value="<?= isset($_POST['user']) ? htmlspecialchars($_POST['user']) : '';?>"></td>
+                <td><input id="mail" type="email" name="mail" placeholder="e-mail" value="<?= isset($_POST['mail']) ? htmlspecialchars($_POST['mail']) : '';?>"></td>
+                <td><input id="task" type="text" name="task" placeholder="task" value="<?= isset($_POST['task']) ? htmlspecialchars($_POST['task']) : '';?>"></td>
                 <td><input id="add" type="submit" name="add" value="Add task"></td>
             </tr>
             </table>
         </form>
     </div>
     <div>
-        <?php /** @var Tasks_Model $param */ echo isset($param['add_result']) ? $param['add_result'] : ''; ?>
+        <?php /** @var Tasks_Model $param */ echo isset($param['add_result']) ? '<script> alert("' . $param['add_result'] . '");</script>': ''; ?>
 
     </div>
     <div>
