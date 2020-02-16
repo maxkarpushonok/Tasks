@@ -76,7 +76,7 @@
         <?php
         /** @var Tasks_Model $param */
         if ($param['pages'] > 1) {
-            echo 'Pages: ';
+            echo 'Страницы: ';
             for ($i = 1; $i <= $param['pages']; $i++) {
                 if ($i == $page)
                     echo $i;
