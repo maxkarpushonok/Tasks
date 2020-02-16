@@ -134,4 +134,15 @@ class Tasks_Model extends Model {
             return 'Authorization!';
         }
     }
+
+    public function checked() {
+        $mysqli = $this->mysqli;
+
+        if ($mysqli->connect_error) {
+            die('Connection error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+        }
+
+        $query = "UPDATE tasks SET result=" . $_POST['status'] . " WHERE id=" . $_POST['id'] . ";";
+        $mysqli->query($query);
+    }
 }

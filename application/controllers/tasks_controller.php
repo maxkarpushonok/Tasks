@@ -39,6 +39,15 @@ class Tasks_Controller extends Controller
         $login = isset($_COOKIE['login']) ? $_COOKIE['login'] : '';
         $password = isset($_COOKIE['password']) ? $_COOKIE['password'] : '';
 
+        if (isset($_POST['checked'])) {
+            if ((strcasecmp($login, Config::get('admin_login')) == 0) && (strcasecmp($password, md5(Config::get('admin_password'))) == 0))
+                $this->model->checked();
+        }
+
+        if (isset($_POST['save'])) {
+
+        }
+
         if ((strcasecmp($login, Config::get('admin_login')) == 0) && (strcasecmp($password, md5(Config::get('admin_password'))) == 0))
             $this->view->generate('admin_view.php', 'template_view.php', $data, $param);
         else

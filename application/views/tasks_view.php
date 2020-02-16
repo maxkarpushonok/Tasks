@@ -29,8 +29,8 @@
             <button onclick="hideShow()">Authorization</button>
             <div id="authorization" style="display: none">
                 <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]);?>"" method="post">
-                    <input type="text" name="login" placeholder="Login" value="<?= isset($_POST['login']) ? htmlspecialchars($_POST['login']) : ''; ?>"><br/>
-                    <input type="password" name="password" placeholder="Password" value="<?= isset($_POST['password']) ? htmlspecialchars($_POST['password']) : ''; ?>"><br/>
+                    <input type="text" name="login" placeholder="Login" value="<?= isset($_POST['login']) ? htmlspecialchars($_POST['login']) : ''; ?>" required><br/>
+                    <input type="password" name="password" placeholder="Password" value="<?= isset($_POST['password']) ? htmlspecialchars($_POST['password']) : ''; ?>" required><br/>
                     <input type="submit" name="signin" value="Sign in">
                 </form>
                 <?php /** @var Tasks_Model $param */ echo isset($param['enter_result']) ? '<script> alert("' . $param['enter_result'] . '");</script>': ''; ?>
@@ -60,9 +60,9 @@
     }
 ?>
             <tr>
-                <td><input type="text" name="user" placeholder="Name" value="<?= isset($_POST['user']) ? htmlspecialchars($_POST['user']) : '';?>"></td>
-                <td><input type="email" name="mail" placeholder="e-mail" value="<?= isset($_POST['mail']) ? htmlspecialchars($_POST['mail']) : '';?>"></td>
-                <td><input type="text" name="task" placeholder="task" value="<?= isset($_POST['task']) ? htmlspecialchars($_POST['task']) : '';?>"></td>
+                <td><input type="text" name="user" placeholder="Name" value="<?= isset($_POST['user']) ? htmlspecialchars($_POST['user']) : '';?>" required></td>
+                <td><input type="email" name="mail" placeholder="e-mail" value="<?= isset($_POST['mail']) ? htmlspecialchars($_POST['mail']) : '';?>" required></td>
+                <td><input type="text" name="task" placeholder="task" value="<?= isset($_POST['task']) ? htmlspecialchars($_POST['task']) : '';?>" required></td>
                 <td><input type="submit" name="add" value="Add task"></td>
             </tr>
             </table>
