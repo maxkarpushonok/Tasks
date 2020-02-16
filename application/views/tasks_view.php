@@ -14,7 +14,28 @@
     $way_i = ((strcasecmp($way, 'ASC') == 0) ? 'DESC' : 'ASC');
 ?>
     <h1>Tasks list</h1>
+    <script>
+        function hideShow() {
+            var x = document.getElementById("authorization");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+    </script>
     <div>
+        <div>
+            <button onclick="hideShow()">Authorization</button>
+            <div id="authorization" style="display: none">
+                <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]);?>"" method="post">
+                    <input type="text" name="login" placeholder="Login" value="<?= isset($_POST['login']) ? htmlspecialchars($_POST['login']) : ''; ?>"><br/>
+                    <input type="password" name="password" placeholder="Password" value="<?= isset($_POST['password']) ? htmlspecialchars($_POST['password']) : ''; ?>"><br/>
+                    <input type="submit" name="signin" value="Sign in">
+                </form>
+                <?php /** @var Tasks_Model $param */ echo isset($param['enter_result']) ? '<script> alert("' . $param['enter_result'] . '");</script>': ''; ?>
+            </div>
+        </div>
         <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
             <table>
             <tr>
@@ -39,10 +60,10 @@
     }
 ?>
             <tr>
-                <td><input id="user" type="text" name="user" placeholder="Name" value="<?= isset($_POST['user']) ? htmlspecialchars($_POST['user']) : '';?>"></td>
-                <td><input id="mail" type="email" name="mail" placeholder="e-mail" value="<?= isset($_POST['mail']) ? htmlspecialchars($_POST['mail']) : '';?>"></td>
-                <td><input id="task" type="text" name="task" placeholder="task" value="<?= isset($_POST['task']) ? htmlspecialchars($_POST['task']) : '';?>"></td>
-                <td><input id="add" type="submit" name="add" value="Add task"></td>
+                <td><input type="text" name="user" placeholder="Name" value="<?= isset($_POST['user']) ? htmlspecialchars($_POST['user']) : '';?>"></td>
+                <td><input type="email" name="mail" placeholder="e-mail" value="<?= isset($_POST['mail']) ? htmlspecialchars($_POST['mail']) : '';?>"></td>
+                <td><input type="text" name="task" placeholder="task" value="<?= isset($_POST['task']) ? htmlspecialchars($_POST['task']) : '';?>"></td>
+                <td><input type="submit" name="add" value="Add task"></td>
             </tr>
             </table>
         </form>

@@ -9,5 +9,7 @@
     Config::set('db_name', 'tasks');
     Config::set('db_user', 'tasks');
     Config::set('db_pass', 'Qwerty-1');
+    Config::set('admin_login', 'admin');
+    Config::set('admin_password', '123');
 
     require_once 'application/bootstrap.php';

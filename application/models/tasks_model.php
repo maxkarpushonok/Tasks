@@ -59,6 +59,10 @@ class Tasks_Model extends Model {
         return $rows;
     }
 
+    private function check_data($str) {
+        return htmlspecialchars(stripslashes(trim($str)));
+    }
+
     public function add_task()
     {
         if (empty($_POST['user']) || empty($_POST['mail']) || empty($_POST['task'])) {
@@ -75,9 +79,9 @@ class Tasks_Model extends Model {
 
             return $result;
         } else {
-            $user = trim($_POST['user']);
-            $mail = trim($_POST['mail']);
-            $task = htmlspecialchars(stripslashes(trim($_POST['task'])));
+            $user = $this->check_data($_POST['user']);
+            $mail = $this->check_data($_POST['mail']);
+            $task = $this->check_data($_POST['task']);
 
             $user_pattern = "/^([A-z]{1,}[ ]{0,1}){1,}$/";
             if (!preg_match($user_pattern, $user))
@@ -96,9 +100,38 @@ class Tasks_Model extends Model {
 
             $query = "INSERT INTO tasks (user, mail, task) VALUES ('" . $user. "', '" . $mail . "', '" . $task. "');";
             $mysqli->query($query);
-            header('Refresh:3');
+            header('Refresh:1');
             return 'Task added!';
         }
+    }
 
+    public function authorization() {
+        if (empty($_POST['login']) || (empty($_POST['password']))) {
+            $result = '';
+
+            if (empty($_POST['login']))
+                $result .= 'Login is empty! ';
+
+            if (empty($_POST['password']))
+                $result .= 'Password is empty!';
+
+            return $result;
+        } else {
+            $login = $this->check_data($_POST['login']);
+            $password = $this->check_data($_POST['password']);
+
+            if (strcasecmp($login, Config::get('admin_login')) != 0)
+                return 'Incorrect login!';
+
+            if (strcasecmp($password, Config::get('admin_password')) != 0) {
+                return 'Incorrect password!';
+            }
+
+            setcookie('login', $login, time()+3600);
+            setcookie('password', md5($password), time()+3600);
+
+            header('Refresh:1');
+            return 'Authorization!';
+        }
     }
 }
