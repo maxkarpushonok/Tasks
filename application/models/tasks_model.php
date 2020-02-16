@@ -16,7 +16,7 @@ class Tasks_Model extends Model {
 
         $query = "SELECT COUNT(*) FROM `tasks`;";
         $result= $mysqli->query($query);
-        $row = $result->fetch_row();
+        $row = $result->fetch_row;
         return (int) ceil($row[0] / Config::get('tasks_on_page'));
     }
 
@@ -49,7 +49,7 @@ class Tasks_Model extends Model {
         $result = $mysqli->query($query);
 
         $rows = array();
-        while ($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch_assoc) {
             $rows[] = array(
                 'id' => $row['id'], 'user' => $row['user'], 'mail' => $row['mail'],
                 'task' => $row['task'], 'result' => $row['result'],
