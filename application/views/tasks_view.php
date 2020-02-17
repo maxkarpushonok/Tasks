@@ -28,7 +28,7 @@
         <div>
             <button onclick="hideShow()">Авторизация</button>
             <div id="authorization" style="display: none">
-                <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+                <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]). '?p=' . $page . '&s=' . $sort . '&w=' . $waygit;?>" method="post">
                     <input type="text" name="login" placeholder="Логин" value="<?= isset($_POST['login']) ? htmlspecialchars($_POST['login']) : ''; ?>" required><br/>
                     <input type="password" name="password" placeholder="Пароль" value="<?= isset($_POST['password']) ? htmlspecialchars($_POST['password']) : ''; ?>" required><br/>
                     <input type="submit" name="signin" value="Войти">

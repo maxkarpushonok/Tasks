@@ -58,7 +58,7 @@
             req.send(params);
         }
     </script>
-    <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+    <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]). '?p=' . $page . '&s=' . $sort . '&w=' . $way;?>" method="post">
         <table>
             <tr>
                 <td><a href="<?='?p=' . $page . '&s=user&w=' . $way_i . ''?>">имя пользователя</a></td>
